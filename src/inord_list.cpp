@@ -10,6 +10,29 @@ List::List()
     current = NULL;
 }
 
+List::~List()
+{
+    if (head == NULL)
+        return;
+    
+    current = head;
+    if (current->next == NULL)
+    {
+        delete current;
+        return;
+    }
+    else
+    {
+        previous = head->next;
+        while (current != NULL)
+        {
+            delete current;
+            current = previous;
+            previous = previous->next;
+        }
+    }
+}
+
 bool List::InsertAtLast (const ListElemType data, unsigned int line)
 {
     node *link = new node;
@@ -17,6 +40,7 @@ bool List::InsertAtLast (const ListElemType data, unsigned int line)
         return false;
 
     link->data = data;
+    link->line = line;
 
     link->next = NULL;
 
@@ -42,6 +66,7 @@ bool List::InsertAtFirst (const ListElemType data, unsigned int line)
         return false;
 
     link->data = data;
+    link->line = line;
 
     if (head == NULL)
         tail = link;
@@ -59,6 +84,7 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
         return false;
 
     link->data = data;
+    link->line = line;
 
     if (head == NULL || location == 0)
     {
