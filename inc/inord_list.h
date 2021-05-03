@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+using namespace std;
 
 typedef string  ListElemType;
 
@@ -18,18 +19,18 @@ class List{
             node*    head;
             node*    tail;
             node*    current;
+            node*    current2;
             node*    previous;
-            List();
-            bool InsertAtFirst(const ListElemType data, unsigned int line);
             bool InsertAtLast(const ListElemType data, unsigned int line);
             bool InsertAtAny(const ListElemType data, unsigned int location, unsigned int line);
-            ~List();
+            bool DeleteDuplicate(const ListElemType data, int *ptr);
     public:
+            List();
+            ~List();
             bool            Insert(const ListElemType data, unsigned int line);
-            bool            DeleteDuplicate(const ListElemType data);
+            bool            CleanList(void);
             ListElemType    Fetch(ListElemType &data);
+            void            Print();
 
 };
-
-
 #endif

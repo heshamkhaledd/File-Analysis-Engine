@@ -23,13 +23,15 @@ List::~List()
     }
     else
     {
-        previous = head->next;
-        while (current != NULL)
+        current2 = head->next;
+        while(current2 != NULL)
         {
             delete current;
-            current = previous;
-            previous = previous->next;
+            current = current2;
+            current2 = current2->next;
         }
+        delete current;
+        return;
     }
 }
 
@@ -44,14 +46,14 @@ bool List::InsertAtLast (const ListElemType data, unsigned int line)
 
     link->next = NULL;
 
-    if (head = NULL)
+    if (head == NULL)
     {
         head = link;
+        tail = link;
         return true;
     }
     else
     {
-        current = head;
         tail->next = link;
         tail = link;
 
@@ -59,29 +61,14 @@ bool List::InsertAtLast (const ListElemType data, unsigned int line)
     }
 }
 
-bool List::InsertAtFirst (const ListElemType data, unsigned int line)
-{
-    node *link = new node;
-    if (link == NULL)
-        return false;
-
-    link->data = data;
-    link->line = line;
-
-    if (head == NULL)
-        tail = link;
-
-    link->next = head;
-	head = link;
-
-    return true;
-}
-
 bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned int line)
 {
     node *link = new node;
     if (link == NULL)
         return false;
+    
+    //if (location < nodeCount)
+        //return false;
 
     link->data = data;
     link->line = line;
@@ -93,7 +80,6 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
         return true;
     }
 
-
     current = head;
     for (int Idx = 0 ; Idx<location-1 ; Idx++)
         current = current->next;
@@ -103,35 +89,7 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
     return true;
 }
 
-bool List::Insert (const ListElemType data,unsigned int line)
-{
-    nodeCount++;
-    bool flag;
-    if (head == NULL)
-    {
-        flag = InsertAtLast(data,line);
-        if (flag)
-            return true;
-        else
-            return false;
-    }
-
-    current = head;
-    unsigned int Itr = 0;
-    while (current != NULL && data.compare(current->data) > 0)
-    {
-        current = current->next;
-        Itr++;
-    }
-
-    flag = this->InsertAtAny(data,Itr,line);
-        if (flag)
-            return true;
-        else
-            return false;
-}
-
-bool List::DeleteDuplicate(const ListElemType data)
+bool List::DeleteDuplicate(const ListElemType data,int *ptr)
 {
     bool firstPass = false;
     bool flag = false;
@@ -170,6 +128,7 @@ bool List::DeleteDuplicate(const ListElemType data)
                 delete current;
                 current = previous->next;
                 nodeCount--;
+                (*ptr)++;
                 flag = true;
             }
         }
@@ -177,5 +136,65 @@ bool List::DeleteDuplicate(const ListElemType data)
             return true;
         else
             return false;       
+    }
+}
+
+bool List::CleanList(void)
+{
+    bool flag = false;
+    int frequency = 0;
+    if (head == NULL)
+        return false;
+    else
+    {
+        current2 = head;
+        for (int Idx = 0 ; Idx < nodeCount ; Idx++)
+        {
+            flag = DeleteDuplicate(current2->data,&frequency);
+            current2->frequency = frequency+1;
+            current2 = current2->next;
+            frequency = 0;
+        }
+        return true;
+    }
+}
+
+bool List::Insert (const ListElemType data, unsigned int line)
+{
+    nodeCount++;
+    bool flag;
+    if (head == NULL)
+    {
+        flag = InsertAtLast(data,line);
+        if (flag)
+            return true;
+        else
+            return false;
+    }
+
+    current = head;
+    unsigned int Itr = 0;
+    while (current != NULL && data.compare(current->data) > 0)
+    {
+        current = current->next;
+        Itr++;
+    }
+
+    flag = this->InsertAtAny(data,Itr,line);
+        if (flag)
+            return true;
+        else
+            return false;
+}
+
+
+void List::Print()
+{
+    current = head;
+
+    while (current != NULL)
+    {
+        cout<<current->data<<" ";
+        current = current->next;
     }
 }
