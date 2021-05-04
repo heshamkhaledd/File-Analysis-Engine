@@ -71,7 +71,7 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
         //return false;
 
     link->data = data;
-    link->line = line;
+    link->line = to_string(line);
 
     if (head == NULL || location == 0)
     {
@@ -89,7 +89,7 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
     return true;
 }
 
-bool List::DeleteDuplicate(const ListElemType data,int *ptr)
+bool List::DeleteDuplicate(const ListElemType data,unsigned int &frequency)
 {
     bool firstPass = false;
     bool flag = false;
@@ -113,6 +113,7 @@ bool List::DeleteDuplicate(const ListElemType data,int *ptr)
             if (!firstPass)
             {
                 firstPass = true;
+                current3 = current;
                 current = current->next;
                 continue;
             }
@@ -123,12 +124,12 @@ bool List::DeleteDuplicate(const ListElemType data,int *ptr)
                     previous = previous->next;
                         Idx++;
                 }
-                
                 previous->next = current->next;
                 delete current;
                 current = previous->next;
                 nodeCount--;
-                (*ptr)++;
+                frequency++;
+                current3->line = current3->line + ", " + current->line;
                 flag = true;
             }
         }
@@ -139,10 +140,10 @@ bool List::DeleteDuplicate(const ListElemType data,int *ptr)
     }
 }
 
-bool List::CleanList(void)
+bool List::Clean()
 {
     bool flag = false;
-    int frequency = 0;
+    unsigned int frequency = 0;
     if (head == NULL)
         return false;
     else
@@ -150,7 +151,7 @@ bool List::CleanList(void)
         current2 = head;
         for (int Idx = 0 ; Idx < nodeCount ; Idx++)
         {
-            flag = DeleteDuplicate(current2->data,&frequency);
+            flag = DeleteDuplicate(current2->data,frequency);
             current2->frequency = frequency+1;
             current2 = current2->next;
             frequency = 0;
@@ -194,7 +195,7 @@ void List::Print()
 
     while (current != NULL)
     {
-        cout<<current->data<<" ";
+        cout<<current->data<<" "<<current->frequency<<" ";
         current = current->next;
     }
 }

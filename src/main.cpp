@@ -3,21 +3,46 @@ using namespace std;
 
 int main()
 {
-    string str;
     List myList;
+    string word;
+    char ch;
+    unsigned int charCount = 0;
+    unsigned int line = 0;
     bool flag;
-    for (int Idx = 0; Idx < 10 ; Idx++)
+    ifstream inFile;
+    inFile.open("File.txt",std::ifstream::in);
+    if (inFile.is_open())
     {
-        cin>>str;
-        flag = myList.Insert(str,1);
-        if (flag == false)
+        while(inFile >> ch)
         {
-            cout<<"ERROR!";
-            return 0;
+            charCount++;
+            if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' || ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' || ch == ')' || ch == 34 || ch == 39)
+                continue;
+                
+            word += ch;
+            if (ch == ' ')
+            {
+                word = word.erase(word.length(),1);
+                flag = myList.Insert(word,line);
+                if (!flag)
+                {
+                    cout<<"ERROR Allocating a Word!";
+                    exit(1);
+                }
+                else
+                    word.clear();
+            }
+            else if (ch == '\n')
+                line++;
         }
     }
-
-    myList.CleanList();
+    else
+    {
+        cout<<"Can't Open File"<<endl;
+        exit (1);
+    }
+    myList.Clean();
     myList.Print();
+
     return 0;
 }
