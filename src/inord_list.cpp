@@ -42,7 +42,7 @@ bool List::InsertAtLast (const ListElemType data, unsigned int line)
         return false;
 
     link->data = data;
-    link->line = line;
+    link->line = to_string(line);
 
     link->next = NULL;
 
@@ -195,7 +195,7 @@ void List::Print()
 
     while (current != NULL)
     {
-        cout<<current->data<<" "<<current->frequency<<" ";
+        cout<<"Word: "<<current->data<<" "<<" Frequency: "<<current->frequency<<" Line Number: "<<current->line<<endl;
         current = current->next;
     }
 }

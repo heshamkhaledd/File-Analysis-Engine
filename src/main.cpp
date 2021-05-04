@@ -7,35 +7,38 @@ int main()
     string word;
     char ch;
     unsigned int charCount = 0;
-    unsigned int line = 0;
+    unsigned int line = 1;
     bool flag;
     ifstream inFile;
     inFile.open("File.txt",std::ifstream::in);
     if (inFile.is_open())
     {
-        while(inFile >> ch)
+        while(inFile.get(ch))
         {
             charCount++;
             if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' || ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' || ch == ')' || ch == 34 || ch == 39)
                 continue;
-                
-            word += ch;
-            if (ch == ' ')
+   
+            else if (ch == ' ' || ch == '\n')
             {
-                word = word.erase(word.length(),1);
+                if (ch == '\n')
+                    line++;
+
                 flag = myList.Insert(word,line);
+                word = "";
+
                 if (!flag)
                 {
                     cout<<"ERROR Allocating a Word!";
                     exit(1);
                 }
-                else
-                    word.clear();
             }
-            else if (ch == '\n')
-                line++;
+            else
+                word += ch;
         }
+        flag = myList.Insert(word,line);
     }
+    
     else
     {
         cout<<"Can't Open File"<<endl;
