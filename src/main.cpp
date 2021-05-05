@@ -15,17 +15,17 @@ int main()
     {
         while(inFile.get(ch))
         {
+            ch = tolower(ch);
             charCount++;
             if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' || ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' || ch == ')' || ch == 34 || ch == 39)
                 continue;
    
             else if (ch == ' ' || ch == '\n')
             {
+                flag = myList.Insert(word,line);
+                word.clear();
                 if (ch == '\n')
                     line++;
-
-                flag = myList.Insert(word,line);
-                word = "";
 
                 if (!flag)
                 {

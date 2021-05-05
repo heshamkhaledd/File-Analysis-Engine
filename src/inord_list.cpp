@@ -43,6 +43,7 @@ bool List::InsertAtLast (const ListElemType data, unsigned int line)
 
     link->data = data;
     link->line = to_string(line);
+    link->frequency = 0;
 
     link->next = NULL;
 
@@ -72,6 +73,7 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
 
     link->data = data;
     link->line = to_string(line);
+    link->frequency = 0;
 
     if (head == NULL || location == 0)
     {
@@ -125,11 +127,15 @@ bool List::DeleteDuplicate(const ListElemType data,unsigned int &frequency)
                         Idx++;
                 }
                 previous->next = current->next;
+
+                if((current3->line.find(" "+current->line+" ") == string::npos) && (current3->line.find(current->line+" ") == string::npos))
+                    current3->line =  current->line + " " + current3->line;
+
                 delete current;
                 current = previous->next;
                 nodeCount--;
                 frequency++;
-                current3->line = current3->line + ", " + current->line;
+
                 flag = true;
             }
         }
@@ -172,7 +178,6 @@ bool List::Insert (const ListElemType data, unsigned int line)
         else
             return false;
     }
-
     current = head;
     unsigned int Itr = 0;
     while (current != NULL && data.compare(current->data) > 0)
@@ -180,7 +185,6 @@ bool List::Insert (const ListElemType data, unsigned int line)
         current = current->next;
         Itr++;
     }
-
     flag = this->InsertAtAny(data,Itr,line);
         if (flag)
             return true;
@@ -195,7 +199,8 @@ void List::Print()
 
     while (current != NULL)
     {
-        cout<<"Word: "<<current->data<<" "<<" Frequency: "<<current->frequency<<" Line Number: "<<current->line<<endl;
+        cout<<endl<<"Word: "<<current->data<<" "<<" Frequency: "<<current->frequency<<" Line Number: "<<current->line<<endl;
         current = current->next;
     }
+    cout<<endl<<"NodeCount: "<<nodeCount<<endl;
 }
