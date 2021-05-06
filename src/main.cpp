@@ -15,8 +15,8 @@ int main()
     {
         while(inFile.get(ch))
         {
-            ch = tolower(ch);
             charCount++;
+            ch = tolower(ch);
             if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' || ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' || ch == ')' || ch == 34 || ch == 39)
                 continue;
    

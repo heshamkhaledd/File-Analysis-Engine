@@ -14,7 +14,6 @@ List::~List()
 {
     if (head == NULL)
         return;
-    
     current = head;
     if (current->next == NULL)
     {
@@ -31,8 +30,13 @@ List::~List()
             current2 = current2->next;
         }
         delete current;
-        return;
     }
+    delete current2;
+    delete current3;
+    delete previous;
+    delete head;
+    delete tail;
+    return;
 }
 
 bool List::InsertAtLast (const ListElemType data, unsigned int line)
