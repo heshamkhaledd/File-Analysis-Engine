@@ -23,7 +23,7 @@ List::~List()
     else
     {
         current2 = head->next;
-        while(current2 != NULL)
+        while (current2 != NULL)
         {
             delete current;
             current = current2;
@@ -31,63 +31,28 @@ List::~List()
         }
         delete current;
     }
-    delete current2;
-    delete current3;
-    delete previous;
-    delete head;
-    delete tail;
     return;
-}
-
-bool List::InsertAtLast (const ListElemType data, unsigned int line)
-{
-    node *link = new node;
-    if(link == NULL)
-        return false;
-
-    link->data = data;
-    link->line = to_string(line);
-    link->frequency = 0;
-
-    link->next = NULL;
-
-    if (head == NULL)
-    {
-        head = link;
-        tail = link;
-        return true;
-    }
-    else
-    {
-        tail->next = link;
-        tail = link;
-
-        return true;
-    }
 }
 
 bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned int line)
 {
-    node *link = new node;
+    node* link = new node;
     if (link == NULL)
         return false;
-    
-    //if (location < nodeCount)
-        //return false;
 
     link->data = data;
-    link->line = to_string(line);
+    link->line.push_back(line);
     link->frequency = 0;
 
     if (head == NULL || location == 0)
     {
         link->next = head;
-	    head = link;
+        head = link;
         return true;
     }
 
     current = head;
-    for (int Idx = 0 ; Idx<location-1 ; Idx++)
+    for (int Idx = 0; Idx < location - 1; Idx++)
         current = current->next;
 
     link->next = current->next;
@@ -95,12 +60,13 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
     return true;
 }
 
-bool List::DeleteDuplicate(const ListElemType data,unsigned int &frequency)
+bool List::DeleteDuplicate(const ListElemType data, unsigned int& frequency)
 {
     bool firstPass = false;
     bool flag = false;
     unsigned int Itr = 0;
     unsigned int Idx = 0;
+    bool lineIdc = false;
     if (head == NULL)
         return false;
     else
@@ -109,13 +75,13 @@ bool List::DeleteDuplicate(const ListElemType data,unsigned int &frequency)
         previous = head;
         while (current != NULL)
         {
-            if(current->data != data)
+            if (current->data != data)
             {
                 current = current->next;
                 Itr++;
                 continue;
             }
-            
+
             if (!firstPass)
             {
                 firstPass = true;
@@ -125,17 +91,19 @@ bool List::DeleteDuplicate(const ListElemType data,unsigned int &frequency)
             }
             else
             {
-                while(Idx<Itr)
+                while (Idx < Itr)
                 {
                     previous = previous->next;
-                        Idx++;
+                    Idx++;
                 }
                 previous->next = current->next;
 
-                if((current3->line.find(" "+current->line+" ") == string::npos) && (current3->line.find(current->line+" ") == string::npos))
-                    current3->line =  current->line + " " + current3->line;
+                vector <unsigned int>::iterator it = std::find(current3->line.begin(), current3->line.end(), current->line[0]);
+                if (it == current3->line.end())
+                    current3->line.push_back(current->line[0]);
 
                 delete current;
+                
                 current = previous->next;
                 nodeCount--;
                 frequency++;
@@ -146,7 +114,7 @@ bool List::DeleteDuplicate(const ListElemType data,unsigned int &frequency)
         if (!flag)
             return true;
         else
-            return false;       
+            return false;
     }
 }
 
@@ -159,10 +127,11 @@ bool List::Clean()
     else
     {
         current2 = head;
-        for (int Idx = 0 ; Idx < nodeCount ; Idx++)
+        for (int Idx = 0; Idx < nodeCount; Idx++)
         {
-            flag = DeleteDuplicate(current2->data,frequency);
-            current2->frequency = frequency+1;
+            flag = DeleteDuplicate(current2->data, frequency);
+            current2->frequency = frequency + 1;
+            sort(current2->line.begin(), current2->line.end());
             current2 = current2->next;
             frequency = 0;
         }
@@ -170,13 +139,13 @@ bool List::Clean()
     }
 }
 
-bool List::Insert (const ListElemType data, unsigned int line)
+bool List::Insert(const ListElemType data, unsigned int line)
 {
     nodeCount++;
     bool flag;
     if (head == NULL)
     {
-        flag = InsertAtLast(data,line);
+        flag = InsertAtAny(data, 0 , line);
         if (flag)
             return true;
         else
@@ -189,11 +158,11 @@ bool List::Insert (const ListElemType data, unsigned int line)
         current = current->next;
         Itr++;
     }
-    flag = this->InsertAtAny(data,Itr,line);
-        if (flag)
-            return true;
-        else
-            return false;
+    flag = this->InsertAtAny(data, Itr, line);
+    if (flag)
+        return true;
+    else
+        return false;
 }
 
 
@@ -203,8 +172,10 @@ void List::Print()
 
     while (current != NULL)
     {
-        cout<<endl<<"Word: "<<current->data<<" "<<" Frequency: "<<current->frequency<<" Line Number: "<<current->line<<endl;
+        cout << endl << "Word: " << current->data << " " << " Frequency: " << current->frequency<< " Lines: ";
+        for (int Element : current->line)
+            cout << Element << " ";
         current = current->next;
     }
-    cout<<endl<<"NodeCount: "<<nodeCount<<endl;
+    cout << endl << "NodeCount: " << nodeCount << endl;
 }
