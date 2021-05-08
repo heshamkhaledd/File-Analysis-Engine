@@ -1,22 +1,51 @@
+ /******************************************************************************
+ *
+ * [File Name]:   main.cpp
+ *
+ * [Description]: File Analysis Engine main file. Responsible for reading the
+ *                text file and the command file.
+ *
+ * [Date]:        4/5/2021
+ *
+ ******************************************************************************/
+
 #include "../inc/inord_list.h"
 
 using namespace std;
 
+// Function prototypes
+void readTextFile();
+void getCommand();
+
 unsigned int charCount = 0;
-
-int main() {
-
     List myList;
-    // word is for command, arg is for the command's argument and str if the command's output is a string
-    string word,str,arg;
+    string word,arg,str;
     char ch;
     unsigned int line = 1;
     bool flag = true;
     unsigned int var = 0;
     ifstream inFile, cmdFile;
 
-    inFile.open("File.txt", std::ifstream:: in );
-    cmdFile.open("Commands.txt",std::ifstream::in);
+
+int main(int argc, char *argv[]) {
+
+    if (argc != 3) {
+        cout<<"Incorrect number of arguments"<<endl;
+        return 0;
+    }
+
+    // Open both files
+    inFile.open(argv[1], std::ifstream::in);
+    cmdFile.open(argv[2],std::ifstream::in);
+
+    readTextFile();
+
+    getCommand();
+
+    return 0;
+}
+
+void readTextFile() {
 
     if (inFile.is_open()) {
         while (inFile.get(ch)) {
@@ -55,7 +84,9 @@ int main() {
     }
 
     myList.Clean();
+}
 
+void getCommand() {
 
     if (cmdFile.is_open()) {
         while (getline(cmdFile, word)) {
@@ -93,12 +124,12 @@ int main() {
                 cout<<"Words with ("<<arg<<") as a start: "<<str<<endl;
                 str.clear();
             }
-            else if (!(word.compare("containing"))){
+            else if (!(word.compare("containing"))) {
                 myList.genericSearch(arg,str,'b');
                 cout<<"Words containing ("<<arg<<"): "<<str<<endl;
                 str.clear();
             }
-            else if (!(word.compare("search"))){
+            else if (!(word.compare("search"))) {
                 myList.genericSearch(arg,str,'c');
                 cout<<"Words containing ("<<arg<<"): \n"<<str<<endl;
                 str.clear();
@@ -108,5 +139,8 @@ int main() {
             }
         }
     }
-    return 0;
+    else {
+        cout<<"File not found"<<endl;
+        exit (1);
+    }
 }

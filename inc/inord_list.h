@@ -1,3 +1,12 @@
+ /******************************************************************************
+ *
+ * [File Name]:   inord_list.h
+ *
+ * [Description]: List's data structure header file
+ *
+ * [Date]:        4/5/2021
+ *
+ ******************************************************************************/
 #ifndef INORD_LIST_H
 #define INORD_LIST_H
 
@@ -39,9 +48,7 @@ class List {
         bool wordCount(unsigned int &wordCount);
         bool distWords(unsigned int &distWordsNum);
         bool frequentWord(string &requiredStr);
-        bool countWord (const string requiredStr, unsigned int &wordCount);
-        bool genericSearch (const string str, string &requiredStr, const char type);
-        void Print();
-
+        bool countWord (const string Str, unsigned int &wordCount);
+        bool genericSearch (const string Str, string &requiredStr, const char type);
 };
 #endif
