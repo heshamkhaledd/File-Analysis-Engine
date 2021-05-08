@@ -394,21 +394,27 @@ bool List::countWord (const string Str, unsigned int &wordCount) {
  *
  *****************************************************************************/
 bool List::genericSearch (const string Str, string &requiredStr, const char type){
-   if (head == NULL)
+   if (head == NULL) {
+      requiredStr = "Word not found";
       return false;
+   }
    else {
+      bool flag = false;
       current = head;
       unsigned int Idx = 0;
       while (current != NULL) {
          Idx = current -> data.find(Str);
          if (type == 'a' && Idx == 0) {
                requiredStr = requiredStr + current -> data + ":" + " " + to_string(current -> frequency) + "   ";
+               flag = true;
          }
          else if (type == 'b' && Idx != string::npos) {
                requiredStr = requiredStr + current -> data + ":" + " " + to_string(current -> frequency) + "   ";
+               flag = true;
          }
          else if (type == 'c' && Idx != string::npos) {
             requiredStr = requiredStr + current -> data + ":   lines ";
+            flag = true;
             for (unsigned int Element: current -> line)
                requiredStr += to_string(Element) + " ";
 
@@ -417,7 +423,12 @@ bool List::genericSearch (const string Str, string &requiredStr, const char type
          }
          current = current -> next;
       }
-      requiredStr.erase(requiredStr.length()-1,1);
+
+      if (!flag)
+         requiredStr = "Word not found";
+      else
+         requiredStr.erase(requiredStr.length()-1,1);
+
       return true;
    }
 }

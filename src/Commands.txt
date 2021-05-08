@@ -2,6 +2,7 @@ wordCount
 distWords
 charCount
 frequentWord
+
 countWord Hesham
 starting he
 containing ma

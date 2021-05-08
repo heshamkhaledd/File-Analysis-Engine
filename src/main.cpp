@@ -98,45 +98,61 @@ void getCommand() {
             
             if (!(word.compare("wordCount"))) {
                 myList.wordCount(var);
-                cout<<"wordCount: "<<var<<endl;
+                cout<<var<<" words"<<endl;
                 var = 0;
             }
             else if (!(word.compare("distWords"))) {
                 myList.distWords(var);
-                cout<<"Distinct Words: "<<var<<endl;
+                cout<<var<<" distinct words"<<endl;
                 var = 0;
             }
             else if (!(word.compare("charCount"))) {
-                cout<<"charCount: "<<charCount<<endl;
+                cout<<charCount<<" characters"<<endl;
             }
             else if (!(word.compare("frequentWord"))) {
                 myList.frequentWord(str);
-                cout<<"Most Frequent Word: "<<str<<endl;
+                cout<<"Most frequent word is: "<<str<<endl;
                 str.clear();
             }
             else if (!(word.compare("countWord"))) {
                 myList.countWord(arg,var);
-                cout<<"Word Repetition: "<<var<<endl;
+                cout<<arg<<" is repeated "<<var<<" times"<<endl;
                 var = 0;
             }
             else if (!(word.compare("starting"))) {
+                if(arg == "") {
+                    cout<<"Incorrect number of arguments\n";
+                    return;
+                }
                 myList.genericSearch(arg,str,'a');
-                cout<<"Words with ("<<arg<<") as a start: "<<str<<endl;
+                cout<<str<<endl;
                 str.clear();
             }
             else if (!(word.compare("containing"))) {
+                if(arg == "") {
+                    cout<<"Incorrect number of arguments\n";
+                    return;
+                }
                 myList.genericSearch(arg,str,'b');
-                cout<<"Words containing ("<<arg<<"): "<<str<<endl;
+                cout<<str<<endl;
                 str.clear();
             }
             else if (!(word.compare("search"))) {
+                if(arg == "") {
+                    cout<<"Incorrect number of arguments\n";
+                    return;
+                }
                 myList.genericSearch(arg,str,'c');
-                cout<<"Words containing ("<<arg<<"): \n"<<str<<endl;
+                cout<<str<<endl;
                 str.clear();
             }
+            else if (word == "")
+                continue;
             else{
                 cout<<"Undefined Command"<<endl;
             }
+            word.clear();
+            arg.clear();
         }
     }
     else {
