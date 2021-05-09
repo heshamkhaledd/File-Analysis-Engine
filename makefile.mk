@@ -14,7 +14,7 @@ TIME_MACRO=$$(($$(date +%s)-$$(cat ${OUT_DIR}/_time_.txt))) sec
 all:
 	@echo 'Building Target: $@'
 	@echo 'Invoking: g++ Compiler/Linker'
-	mkdir -p ${OUT_DIR}
+	@mkdir -p ${OUT_DIR}
 	@${START_TIME}
 	${CC} ${SRCS} ${CPPFLAGS} -o ${OUT_DIR}/${EXEC}.exe
 	@echo Compilation Time: ${TIME_MACRO}
