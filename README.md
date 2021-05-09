@@ -17,7 +17,7 @@ Implementing a C++ tool that analyzes a text file and returns information about 
 In the repository's root directory, run  
 ``` make -f makefile.mk ```
 
-Your executable will be produced into the ```build``` directory
+A ```build``` directory will be created in the root path containing the executable
 
 ## Running
 Place your text file and Commands file in the build directory next to the executable and run  
