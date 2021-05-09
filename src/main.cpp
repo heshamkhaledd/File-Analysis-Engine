@@ -53,11 +53,11 @@ void readTextFile() {
             ch = tolower(ch);
             if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' ||
                 ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' ||
-                ch == ')' || ch == 34 || ch == 39) {
+                ch == ')' || ch == 34 || ch == 39 || ch == '!' || ch == '?')
+                
                     ch = ' ';
-                }
 
-            else if (ch == ' ' || ch == '\n') {
+            if (ch == ' ' || ch == '\n') {
 
                 if (word.length() != 0 && word.find(" ") == string::npos){
                     flag = myList.Insert(word, line);
