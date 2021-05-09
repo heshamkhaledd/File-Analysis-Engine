@@ -98,7 +98,7 @@ void getCommand() {
             istringstream stream(word);
             stream>>word;
             stream>>arg;
-            for (int Idx = 0 ; Idx<arg.length() ; Idx++)
+            for (unsigned int Idx = 0 ; Idx<arg.length() ; Idx++)
                 arg[Idx] = tolower(arg[Idx]);
             
             if (!(word.compare("wordCount"))) {
@@ -151,8 +151,9 @@ void getCommand() {
                 cout<<str<<endl;
                 str.clear();
             }
-            else if (word == "")
+            else if (word == "" || !(word.find(" ") == string::npos)) {
                 continue;
+            }
             else{
                 cout<<"Undefined Command"<<endl;
             }
