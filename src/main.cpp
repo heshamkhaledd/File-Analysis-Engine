@@ -42,6 +42,10 @@ int main(int argc, char *argv[]) {
 
     getCommand();
 
+    // Close both files
+    inFile.close();
+    cmdFile.close();
+
     return 0;
 }
 
@@ -54,7 +58,7 @@ void readTextFile() {
             if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' ||
                 ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' ||
                 ch == ')' || ch == 34 || ch == 39 || ch == '!' || ch == '?')
-                
+
                     ch = ' ';
 
             if (ch == ' ' || ch == '\n') {
