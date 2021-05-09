@@ -401,15 +401,15 @@ bool List::genericSearch (const string Str, string &requiredStr, const char type
    else {
       bool flag = false;
       current = head;
-      unsigned int Idx = 0;
+      int Idx = 0;
       while (current != NULL) {
          Idx = current -> data.find(Str);
          if (type == 'a' && Idx == 0) {
-               requiredStr = requiredStr + current -> data + ":" + " " + to_string(current -> frequency) + "   ";
+               requiredStr = requiredStr + current -> data + ": " + to_string(current -> frequency) + "\t";
                flag = true;
          }
          else if (type == 'b' && Idx != string::npos) {
-               requiredStr = requiredStr + current -> data + ":" + " " + to_string(current -> frequency) + "   ";
+               requiredStr = requiredStr + current -> data + ": " + to_string(current -> frequency) + "\t";
                flag = true;
          }
          else if (type == 'c' && Idx != string::npos) {

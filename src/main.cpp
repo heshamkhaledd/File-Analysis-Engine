@@ -53,8 +53,9 @@ void readTextFile() {
             ch = tolower(ch);
             if (ch == ',' || ch == ';' || ch == ':' || ch == '&' || ch == '.' ||
                 ch == '[' || ch == ']' || ch == '{' || ch == '}' || ch == '(' ||
-                ch == ')' || ch == 34 || ch == 39)
-                continue;
+                ch == ')' || ch == 34 || ch == 39) {
+                    ch = ' ';
+                }
 
             else if (ch == ' ' || ch == '\n') {
 
@@ -122,7 +123,7 @@ void getCommand() {
             else if (!(word.compare("starting"))) {
                 if(arg == "") {
                     cout<<"Incorrect number of arguments\n";
-                    return;
+                    continue;
                 }
                 myList.genericSearch(arg,str,'a');
                 cout<<str<<endl;
@@ -131,7 +132,7 @@ void getCommand() {
             else if (!(word.compare("containing"))) {
                 if(arg == "") {
                     cout<<"Incorrect number of arguments\n";
-                    return;
+                    continue;
                 }
                 myList.genericSearch(arg,str,'b');
                 cout<<str<<endl;
@@ -140,7 +141,7 @@ void getCommand() {
             else if (!(word.compare("search"))) {
                 if(arg == "") {
                     cout<<"Incorrect number of arguments\n";
-                    return;
+                    continue;
                 }
                 myList.genericSearch(arg,str,'c');
                 cout<<str<<endl;
