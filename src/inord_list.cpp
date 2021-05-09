@@ -200,7 +200,7 @@ bool List::DeleteDuplicate(const ListElemType data, unsigned int & frequency) {
  *****************************************************************************/
 bool List::Clean() {
 
-   bool flag = false;
+
    unsigned int frequency = 0;
    List::node *nodePtr;
    
@@ -210,7 +210,7 @@ bool List::Clean() {
    else {
       nodePtr = head;
       for (unsigned int Idx = 0; Idx < nodeCount; Idx++) {
-         flag = DeleteDuplicate(nodePtr -> data, frequency);
+         DeleteDuplicate(nodePtr -> data, frequency);
          nodePtr -> frequency = frequency + 1;
          // sort the line member to print line occurences in order
          sort(nodePtr -> line.begin(), nodePtr -> line.end());
@@ -408,11 +408,11 @@ bool List::genericSearch (const string Str, string &requiredStr, const char type
                requiredStr = requiredStr + current -> data + ": " + to_string(current -> frequency) + "\t";
                flag = true;
          }
-         else if (type == 'b' && Idx != string::npos) {
+         else if (type == 'b' && Idx != (int)string::npos) {
                requiredStr = requiredStr + current -> data + ": " + to_string(current -> frequency) + "\t";
                flag = true;
          }
-         else if (type == 'c' && Idx != string::npos) {
+         else if (type == 'c' && Idx != (int)string::npos) {
             requiredStr = requiredStr + current -> data + ":   lines ";
             flag = true;
             for (unsigned int Element: current -> line)
