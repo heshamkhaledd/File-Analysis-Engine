@@ -6,6 +6,3 @@ countWord example
 starting th
 containing is
 search am
-search
-read
-    
