@@ -122,7 +122,8 @@ bool List::InsertAtAny(const ListElemType data, unsigned int location, unsigned 
  *                node's frequency everytime an occurence happen.
  *
  * [Arguments]:   const ListElemType, unsigned int &
- * [Return]:      bool
+ * [Return]:      Explicit: bool
+ *                Implicit: unsigned int
  *
  *****************************************************************************/
 bool List::DeleteDuplicate(const ListElemType data, unsigned int & frequency) {
