@@ -179,7 +179,7 @@ bool List::DeleteDuplicate(const ListElemType data, unsigned int & frequency) {
             flag = true;
          }
       }
-      if (!flag)
+      if (flag)
          return true;
       else
          return false;
