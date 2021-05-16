@@ -414,7 +414,7 @@ bool List::genericSearch (const string Str, string &requiredStr, const char type
                flag = true;
          }
          else if (type == 'c' && Idx != (int)string::npos) {
-            requiredStr = requiredStr + current -> data + ":   lines ";
+            requiredStr = requiredStr + current -> data + ":\tlines ";
             flag = true;
             for (unsigned int Element: current -> line)
                requiredStr += to_string(Element) + " ";
