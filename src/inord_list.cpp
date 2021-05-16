@@ -316,6 +316,20 @@ bool List::distWords (unsigned int &distWordsNum) {
    return true;
 }
 
+/******************************************************************************
+ *
+ * [Function Name]: frequentWord
+ * 
+ * [Type]:        Public
+ *
+ * [Description]: Responsible for finding the most frequent word in the parsed
+ *                text file.
+ *
+ * [Arguments]:   string &
+ * [Return]:      Explicit: bool
+ *                Implicit: string
+ *
+ *****************************************************************************/
 bool List::frequentWord(string &requiredStr) {
    if (head == NULL)
       return false;
