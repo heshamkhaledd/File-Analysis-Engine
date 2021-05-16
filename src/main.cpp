@@ -102,27 +102,70 @@ void getCommand() {
                 arg[Idx] = tolower(arg[Idx]);
             
             if (!(word.compare("wordCount"))) {
-                myList.wordCount(var);
-                cout<<var<<" words"<<endl;
-                var = 0;
+                if (arg != "") {
+                    cout<<"Incorrect number of arguments"<<endl;
+                    word.clear();
+                    arg.clear();
+                    continue;
+                }
+                else{
+                    myList.wordCount(var);
+                    cout<<var<<" words"<<endl;
+                    var = 0;
+                }
             }
             else if (!(word.compare("distWords"))) {
-                myList.distWords(var);
-                cout<<var<<" distinct words"<<endl;
-                var = 0;
+                if (arg != "") {
+                    cout<<"Incorrect number of arguments"<<endl;
+                    word.clear();
+                    arg.clear();
+                    continue;
+                }
+                else {
+                    myList.distWords(var);
+                    cout<<var<<" distinct words"<<endl;
+                    var = 0;
+                }
             }
             else if (!(word.compare("charCount"))) {
-                cout<<charCount<<" characters"<<endl;
+                if (arg != "") {
+                    cout<<"Incorrect number of arguments"<<endl;
+                    word.clear();
+                    arg.clear();
+                    continue;
+                }
+                else
+                    cout<<charCount<<" characters"<<endl;
             }
             else if (!(word.compare("frequentWord"))) {
-                myList.frequentWord(str);
-                cout<<"Most frequent word is: "<<str<<endl;
-                str.clear();
+                if (arg != "") {
+                    cout<<"Incorrect number of arguments"<<endl;
+                    word.clear();
+                    arg.clear();
+                    continue;
+                }
+                else {
+                    myList.frequentWord(str);
+                    cout<<"Most frequent word is: "<<str<<endl;
+                    str.clear();
+                }
             }
             else if (!(word.compare("countWord"))) {
-                myList.countWord(arg,var);
-                cout<<arg<<" is repeated "<<var<<" times"<<endl;
-                var = 0;
+                if (arg == "") {
+                    cout<<"Incorrect number of arguments"<<endl;
+                    word.clear();
+                    arg.clear();
+                    continue;
+                }
+                else {
+                    myList.countWord(arg,var);
+                    if (var != 0) {
+                                    cout<<arg<<" is repeated "<<var<<" times"<<endl;
+                                    var = 0;
+                }
+                else
+                    cout<<"Word not found"<<endl;
+                }
             }
             else if (!(word.compare("starting"))) {
                 if(arg == "") {
